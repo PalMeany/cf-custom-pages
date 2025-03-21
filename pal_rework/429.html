@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Error 429</title>
+    <style>
+        :root {
+            --primary-color: #ff4d4d;
+            --secondary-color: #333;
+            --glow-color: rgba(255, 77, 77, 0.6);
+            --border-radius: 24px;
+            --transition-speed: 0.3s;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #121212;
+            color: #fff;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            filter: blur(8px);
+            opacity: 0.3;
+            transition: opacity var(--transition-speed) ease;
+        }
+
+        .background::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(125deg, #ff4d4d, #333, #ff4d4d);
+            background-size: 400% 400%;
+            animation: gradientAnimation 15s ease infinite;
+            will-change: background-position;
+        }
+
+        @keyframes gradientAnimation {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .container {
+            max-width: 600px;
+            width: 90%;
+            padding: 2.5rem;
+            background-color: rgba(25, 25, 25, 0.8);
+            border-radius: var(--border-radius);
+            box-shadow: 0 0 20px var(--glow-color);
+            animation: fadeIn 0.8s ease-out, pulse 3s infinite 0.8s;
+            transform: translateY(0);
+            transition: transform var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
+        }
+
+        .container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 25px var(--glow-color), 0 0 50px var(--glow-color);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 20px var(--glow-color);
+            }
+            50% {
+                box-shadow: 0 0 25px var(--glow-color), 0 0 50px var(--glow-color);
+            }
+            100% {
+                box-shadow: 0 0 20px var(--glow-color);
+            }
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary-color);
+            text-align: center;
+            animation: textPulse 2s infinite;
+            position: relative;
+        }
+
+        @keyframes textPulse {
+            0% {
+                text-shadow: 0 0 5px rgba(255, 77, 77, 0.3);
+            }
+            50% {
+                text-shadow: 0 0 15px rgba(255, 77, 77, 0.5), 0 0 25px rgba(255, 77, 77, 0.2);
+            }
+            100% {
+                text-shadow: 0 0 5px rgba(255, 77, 77, 0.3);
+            }
+        }
+
+        p {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            opacity: 0;
+            animation: fadeInText 0.5s ease-out forwards;
+            animation-delay: 0.3s;
+        }
+
+        p:nth-of-type(2) {
+            animation-delay: 0.5s;
+        }
+
+        @keyframes fadeInText {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .request-id {
+            background-color: rgba(0, 0, 0, 0.3);
+            padding: 1rem;
+            border-radius: calc(var(--border-radius) - 4px);
+            font-family: monospace;
+            margin-top: 2rem;
+            text-align: center;
+            transition: background-color var(--transition-speed) ease;
+            opacity: 0;
+            animation: fadeInText 0.5s ease-out forwards;
+            animation-delay: 0.7s;
+        }
+
+        .request-id:hover {
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .request-id span {
+            font-weight: bold;
+            color: var(--primary-color);
+            transition: color var(--transition-speed) ease;
+        }
+
+        .request-id:hover span {
+            color: #ff6b6b;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            p {
+                font-size: 1rem;
+            }
+            
+            .container {
+                padding: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .container {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="background"></div>
+    <main class="container">
+        <h1>Too many requests</h1>
+        <p>
+            We've detected an unusual amount of requests from your IP address. 
+            To protect our services, we've temporarily limited your access.
+        </p>
+        <p>
+            Please wait a few minutes before trying again or contact support if you believe this is an error.
+        </p>
+        <div class="request-id">
+            Request ID: <span>::RAY_ID::</span> | Your IP: <span>::CLIENT_IP::</span>
+        </div>
+    </main>
+</body>
+</html>
+
